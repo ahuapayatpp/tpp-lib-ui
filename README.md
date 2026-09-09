@@ -1,39 +1,82 @@
 # tpp-lib-ui
-- Descripción: librería de componentes Angular compartidos de TPP (Microfrontends)
+
+Librería de componentes Angular compartidos de TPP para los microfrontends.
 
 ## Requisitos previos
-- Angular >= 21.2 (peers: @angular/core, @angular/common, @angular/router ^21.2.0)
-- Nota: los componentes de error usan íconos Tabler (ti-*) → el host debe importar
-  el webfont de @tabler/icons-webfont en estilos globales (estándar en los MFs TPP)
+
+- Angular >= 21.2 (peers: `@angular/core`, `@angular/common`, `@angular/router` `^21.2.0`)
+- Los componentes de error usan íconos Tabler (`ti-*`); el host debe importar
+  el webfont de `@tabler/icons-webfont` en sus estilos globales (estándar en los MFs TPP)
 
 ## Instalación
-- Vía package.json (recomendado):
-  "tpp-lib-ui": "github:ahuapayatpp/tpp-lib-ui#v0.1.0"
-  + npm install
-- Vía comando:
-  npm install github:ahuapayatpp/tpp-lib-ui#v0.1.0
 
-## Contenido (v0.1.0)
-Tabla: selector · clase · input(s) · descripción
-- tpp-loading · LoadingComponent · size ('sm'|'md'|'lg') · indicador de carga
-- tpp-unauthorized · UnauthorizedComponent · showButton, buttonText, homeRoute · 401
-- tpp-not-found · NotFoundComponent · showButton, buttonText, homeRoute · 404
-- tpp-server-error · ServerErrorComponent · showButton, buttonText, homeRoute · 500
+Agregar en `package.json`:
+
+```json
+"dependencies": {
+  "tpp-lib-ui": "github:ahuapayatpp/tpp-lib-ui"
+}
+```
+
+Luego:
+
+```bash
+npm install
+```
+
+## Componentes disponibles
+
+| Selector | Clase | Inputs | Descripción |
+|---|---|---|---|
+| `<tpp-loading>` | `LoadingComponent` | `size: 'sm' \| 'md' \| 'lg'` | Indicador de carga |
+| `<tpp-unauthorized>` | `UnauthorizedComponent` | `showButton`, `buttonText`, `homeRoute` | 401 - No autorizado |
+| `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | 404 - No encontrado |
+| `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | 500 - Error del servidor |
 
 ## Uso
-- Import del paquete (import { LoadingComponent } from 'tpp-lib-ui')
-- En template: <tpp-loading size="md" />
-- En rutas: component: UnauthorizedComponent (son standalone)
-- Inputs vinculables: [showButton]="false", [buttonText]="...", [homeRoute]="'/listado-base'"
 
-## Actualizar versión
-- Cambiar el tag (#v0.1.0 → #v0.2.0) en package.json y npm install
+Los componentes son **standalone**, se importan desde el paquete:
 
-## Desarrollo (para el equipo)
-- Clonar tpp-web-workspace, instalar deps, ng build tpp-lib-ui
-- Estructura (src/lib/components, services, pipes a futuro), public-api.ts
-- Cómo publicar una versión (build → sync dist → tag → push)
+```typescript
+import { LoadingComponent } from 'tpp-lib-ui';
+```
+
+En un template:
+
+```html
+<tpp-loading size="md" />
+```
+
+En rutas:
+
+```typescript
+import { UnauthorizedComponent, NotFoundComponent } from 'tpp-lib-ui';
+
+export const routes: Routes = [
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'not-found',    component: NotFoundComponent },
+];
+```
+
+Con inputs:
+
+```html
+<tpp-unauthorized
+  [showButton]="false"
+  buttonText="Volver al módulo"
+  homeRoute="/listado-base" />
+```
+
+## Desarrollo
+
+1. Clonar `tpp-lib-ui-source`
+2. `npm install`
+3. `ng build tpp-lib-ui` (genera `dist/`)
+4. Agregar componentes en `projects/tpp-lib-ui/src/lib/components/` y exportarlos en `public-api.ts`
+5. Publicar cambios: `.\publish.ps1`
 
 ## Roadmap
-- Migrar componentes actuales de shared (loading, table-loading, buscador, modales…)
-- Servicios y pipes compartidos · integración de tpp-theme-ui
+
+- Migrar componentes del shared actual (loading, table-loading, buscador, modales…)
+- Servicios y pipes compartidos
+- Integración con `tpp-theme-ui`
