@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { inject, input, Component } from '@angular/core';
+import { inject, input, Component, output, computed } from '@angular/core';
 import { Router } from '@angular/router';
 
 class NotFoundComponent {
@@ -61,11 +61,54 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImpo
             args: [{ selector: 'tpp-loading', template: "<div class=\"tpp-loading\" [class]=\"'tpp-loading-' + size()\">\r\n  <svg width=\"100%\" height=\"100%\" viewBox=\"0 0 48 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\r\n    <path d=\"M48 0H27V9H39V21H48V0Z\" fill=\"#FF6C37\" class=\"tpp-loading-path1\"/>\r\n    <path d=\"M48 27H27V36H39V48H48V27Z\" fill=\"#FF6C37\" class=\"tpp-loading-path2\"/>\r\n    <path d=\"M21 27H0V36H12V48H21V27Z\" fill=\"#FF6C37\" class=\"tpp-loading-path3\"/>\r\n  </svg>\r\n</div>\r\n", styles: [".tpp-loading{display:inline-flex;align-items:center;justify-content:center}.tpp-loading-sm{width:24px;height:24px}.tpp-loading-md{width:48px;height:48px}.tpp-loading-lg{width:72px;height:72px}.tpp-loading-path1{opacity:0;animation:tppFadeIn1 1.5s infinite}.tpp-loading-path2{opacity:0;animation:tppFadeIn2 1.5s infinite}.tpp-loading-path3{opacity:0;animation:tppFadeIn3 1.5s infinite}@keyframes tppFadeIn1{0%{opacity:0}25%{opacity:1}75%{opacity:1}to{opacity:0}}@keyframes tppFadeIn2{0%{opacity:0}25%{opacity:0}50%{opacity:1}75%{opacity:1}to{opacity:0}}@keyframes tppFadeIn3{0%{opacity:0}50%{opacity:0}75%{opacity:1}to{opacity:0}}\n"] }]
         }], propDecorators: { size: [{ type: i0.Input, args: [{ isSignal: true, alias: "size", required: false }] }] } });
 
+class TableStateComponent {
+    type = input('vacio', ...(ngDevMode ? [{ debugName: "type" }] : /* istanbul ignore next */ []));
+    titulo = input('', ...(ngDevMode ? [{ debugName: "titulo" }] : /* istanbul ignore next */ []));
+    descripcion = input('', ...(ngDevMode ? [{ debugName: "descripcion" }] : /* istanbul ignore next */ []));
+    reintentar = output();
+    cargando = computed(() => this.type() === 'cargando', ...(ngDevMode ? [{ debugName: "cargando" }] : /* istanbul ignore next */ []));
+    mostrarReintentar = computed(() => this.type() === 'error', ...(ngDevMode ? [{ debugName: "mostrarReintentar" }] : /* istanbul ignore next */ []));
+    configuracion = computed(() => this.obtenerConfiguracion(this.type()), ...(ngDevMode ? [{ debugName: "configuracion" }] : /* istanbul ignore next */ []));
+    tituloMostrado = computed(() => this.titulo() || this.configuracion().titulo, ...(ngDevMode ? [{ debugName: "tituloMostrado" }] : /* istanbul ignore next */ []));
+    descripcionMostrada = computed(() => this.descripcion() || this.configuracion().descripcion, ...(ngDevMode ? [{ debugName: "descripcionMostrada" }] : /* istanbul ignore next */ []));
+    obtenerConfiguracion(tipo) {
+        return this.estadoConfig[tipo] ?? this.estadoConfig['vacio'];
+    }
+    estadoConfig = {
+        cargando: {
+            icono: '',
+            titulo: 'Cargando datos',
+            descripcion: 'Por favor, espere un momento...',
+        },
+        vacio: {
+            icono: 'ti-inbox',
+            titulo: 'No hay registros',
+            descripcion: 'Crea un nuevo registro para comenzar.',
+        },
+        'sin-resultados': {
+            icono: 'ti-search',
+            titulo: 'No se encontraron resultados',
+            descripcion: 'Intente ajustar los filtros de búsqueda.',
+        },
+        error: {
+            icono: 'ti-alert-triangle',
+            titulo: 'Error al cargar los datos',
+            descripcion: 'No se pudieron cargar los registros. Inténtelo nuevamente.',
+        },
+    };
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: TableStateComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "21.2.22", type: TableStateComponent, isStandalone: true, selector: "tpp-table-state", inputs: { type: { classPropertyName: "type", publicName: "type", isSignal: true, isRequired: false, transformFunction: null }, titulo: { classPropertyName: "titulo", publicName: "titulo", isSignal: true, isRequired: false, transformFunction: null }, descripcion: { classPropertyName: "descripcion", publicName: "descripcion", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { reintentar: "reintentar" }, ngImport: i0, template: "<div role=\"status\" class=\"tpp-table-state\">\n  @if (cargando()) {\n    <tpp-loading size=\"md\"/>\n  } @else {\n    <div class=\"tpp-table-state-icon\">\n      <i [class]=\"'ti ' + configuracion().icono\"></i>\n    </div>\n  }\n  <p class=\"tpp-table-state-titulo\">{{ tituloMostrado() }}</p>\n  <p class=\"tpp-table-state-descripcion\">{{ descripcionMostrada() }}</p>\n  @if (mostrarReintentar()) {\n    <button class=\"tpp-table-state-button\" (click)=\"reintentar.emit()\">\n      <i class=\"ti ti-refresh\"></i>\n      Reintentar\n    </button>\n  }\n</div>\n", styles: [".tpp-table-state{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:24rem;margin:0 auto;padding:2.5rem 1rem;text-align:center}.tpp-table-state-icon{display:inline-flex;align-items:center;justify-content:center;width:4rem;height:4rem;border-radius:9999px;background-color:var(--p-primary-100);color:var(--p-primary-500);font-size:1.875rem;margin-bottom:1.5rem}.tpp-table-state-titulo{margin:0;font-size:1rem;font-weight:600;color:var(--p-surface-800)}.tpp-table-state-descripcion{margin:.25rem 0 0;font-size:.875rem;color:var(--p-surface-500)}.tpp-table-state-button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.75rem;padding:.6rem 1.5rem;background-color:var(--p-primary-500);color:#fff;border:1px solid transparent;border-radius:.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background-color .2s ease-in-out,border-color .2s ease-in-out}.tpp-table-state-button:hover{background-color:var(--p-primary-600);border-color:var(--p-primary-700)}\n"], dependencies: [{ kind: "component", type: LoadingComponent, selector: "tpp-loading", inputs: ["size"] }] });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: TableStateComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'tpp-table-state', imports: [LoadingComponent], template: "<div role=\"status\" class=\"tpp-table-state\">\n  @if (cargando()) {\n    <tpp-loading size=\"md\"/>\n  } @else {\n    <div class=\"tpp-table-state-icon\">\n      <i [class]=\"'ti ' + configuracion().icono\"></i>\n    </div>\n  }\n  <p class=\"tpp-table-state-titulo\">{{ tituloMostrado() }}</p>\n  <p class=\"tpp-table-state-descripcion\">{{ descripcionMostrada() }}</p>\n  @if (mostrarReintentar()) {\n    <button class=\"tpp-table-state-button\" (click)=\"reintentar.emit()\">\n      <i class=\"ti ti-refresh\"></i>\n      Reintentar\n    </button>\n  }\n</div>\n", styles: [".tpp-table-state{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:24rem;margin:0 auto;padding:2.5rem 1rem;text-align:center}.tpp-table-state-icon{display:inline-flex;align-items:center;justify-content:center;width:4rem;height:4rem;border-radius:9999px;background-color:var(--p-primary-100);color:var(--p-primary-500);font-size:1.875rem;margin-bottom:1.5rem}.tpp-table-state-titulo{margin:0;font-size:1rem;font-weight:600;color:var(--p-surface-800)}.tpp-table-state-descripcion{margin:.25rem 0 0;font-size:.875rem;color:var(--p-surface-500)}.tpp-table-state-button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.75rem;padding:.6rem 1.5rem;background-color:var(--p-primary-500);color:#fff;border:1px solid transparent;border-radius:.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background-color .2s ease-in-out,border-color .2s ease-in-out}.tpp-table-state-button:hover{background-color:var(--p-primary-600);border-color:var(--p-primary-700)}\n"] }]
+        }], propDecorators: { type: [{ type: i0.Input, args: [{ isSignal: true, alias: "type", required: false }] }], titulo: [{ type: i0.Input, args: [{ isSignal: true, alias: "titulo", required: false }] }], descripcion: [{ type: i0.Input, args: [{ isSignal: true, alias: "descripcion", required: false }] }], reintentar: [{ type: i0.Output, args: ["reintentar"] }] } });
+
 // Componentes
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { LoadingComponent, NotFoundComponent, ServerErrorComponent, UnauthorizedComponent };
+export { LoadingComponent, NotFoundComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent };
 //# sourceMappingURL=tpp-lib-ui.mjs.map

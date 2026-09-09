@@ -32,6 +32,7 @@ npm install
 | `<tpp-unauthorized>` | `UnauthorizedComponent` | `showButton`, `buttonText`, `homeRoute` | 401 - No autorizado |
 | `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | 404 - No encontrado |
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | 500 - Error del servidor |
+| `<tpp-table-state>` | `TableStateComponent` | `type` (`cargando` \| `vacio` \| `sin-resultados` \| `error`), `titulo`, `descripcion`, `reintentar` | Estado de tabla (carga, vacío, sin resultados, error) |
 
 ## Uso
 
@@ -65,6 +66,15 @@ Con inputs:
   [showButton]="false"
   buttonText="Volver al módulo"
   homeRoute="/listado-base" />
+```
+
+Estados de tabla:
+
+```html
+<tpp-table-state type="cargando" />
+<tpp-table-state type="vacio" />
+<tpp-table-state type="sin-resultados" />
+<tpp-table-state type="error" (reintentar)="reintentarCarga()" />
 ```
 
 ## Desarrollo
