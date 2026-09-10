@@ -1,5 +1,11 @@
 import * as _angular_core from '@angular/core';
 
+declare class LoadingStateComponent {
+    size: _angular_core.InputSignal<"sm" | "md" | "lg">;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<LoadingStateComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<LoadingStateComponent, "tpp-loading-state", never, { "size": { "alias": "size"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
+}
+
 declare class NotFoundComponent {
     private router;
     showButton: _angular_core.InputSignal<boolean>;
@@ -8,16 +14,6 @@ declare class NotFoundComponent {
     goHome(): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NotFoundComponent, never>;
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<NotFoundComponent, "tpp-not-found", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
-}
-
-declare class UnauthorizedComponent {
-    private router;
-    showButton: _angular_core.InputSignal<boolean>;
-    buttonText: _angular_core.InputSignal<string>;
-    homeRoute: _angular_core.InputSignal<string>;
-    goHome(): void;
-    static ɵfac: _angular_core.ɵɵFactoryDeclaration<UnauthorizedComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<UnauthorizedComponent, "tpp-unauthorized", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
 declare class ServerErrorComponent {
@@ -30,33 +26,46 @@ declare class ServerErrorComponent {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<ServerErrorComponent, "tpp-server-error", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
-declare class LoadingComponent {
-    size: _angular_core.InputSignal<"sm" | "md" | "lg">;
-    static ɵfac: _angular_core.ɵɵFactoryDeclaration<LoadingComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<LoadingComponent, "tpp-loading", never, { "size": { "alias": "size"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
-}
-
-type TipoEstadoTabla = 'cargando' | 'vacio' | 'sin-resultados' | 'error';
-interface ConfiguracionEstadoTabla {
-    icono: string;
-    titulo: string;
-    descripcion: string;
+type TableStateType = 'loading' | 'empty' | 'no-results' | 'error';
+interface TableStateConfig {
+    icon: string;
+    title: string;
+    description: string;
 }
 declare class TableStateComponent {
-    type: _angular_core.InputSignal<TipoEstadoTabla>;
-    titulo: _angular_core.InputSignal<string>;
-    descripcion: _angular_core.InputSignal<string>;
-    reintentar: _angular_core.OutputEmitterRef<void>;
-    cargando: _angular_core.Signal<boolean>;
-    mostrarReintentar: _angular_core.Signal<boolean>;
-    configuracion: _angular_core.Signal<ConfiguracionEstadoTabla>;
-    tituloMostrado: _angular_core.Signal<string>;
-    descripcionMostrada: _angular_core.Signal<string>;
-    obtenerConfiguracion(tipo: TipoEstadoTabla): ConfiguracionEstadoTabla;
-    private readonly estadoConfig;
+    type: _angular_core.InputSignal<TableStateType>;
+    title: _angular_core.InputSignal<string>;
+    description: _angular_core.InputSignal<string>;
+    retry: _angular_core.OutputEmitterRef<void>;
+    isLoading: _angular_core.Signal<boolean>;
+    showRetry: _angular_core.Signal<boolean>;
+    config: _angular_core.Signal<TableStateConfig>;
+    displayedTitle: _angular_core.Signal<string>;
+    displayedDescription: _angular_core.Signal<string>;
+    getConfig(type: TableStateType): TableStateConfig;
+    private readonly stateConfig;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<TableStateComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<TableStateComponent, "tpp-table-state", never, { "type": { "alias": "type"; "required": false; "isSignal": true; }; "titulo": { "alias": "titulo"; "required": false; "isSignal": true; }; "descripcion": { "alias": "descripcion"; "required": false; "isSignal": true; }; }, { "reintentar": "reintentar"; }, never, never, true, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<TableStateComponent, "tpp-table-state", never, { "type": { "alias": "type"; "required": false; "isSignal": true; }; "title": { "alias": "title"; "required": false; "isSignal": true; }; "description": { "alias": "description"; "required": false; "isSignal": true; }; }, { "retry": "retry"; }, never, never, true, never>;
 }
 
-export { LoadingComponent, NotFoundComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent };
-export type { TipoEstadoTabla };
+declare class UnauthorizedComponent {
+    private router;
+    showButton: _angular_core.InputSignal<boolean>;
+    buttonText: _angular_core.InputSignal<string>;
+    homeRoute: _angular_core.InputSignal<string>;
+    goHome(): void;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<UnauthorizedComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<UnauthorizedComponent, "tpp-unauthorized", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
+}
+
+declare class VideoTutorialModalComponent {
+    url: _angular_core.InputSignal<string>;
+    visible: _angular_core.ModelSignal<boolean>;
+    cargandoVideo: _angular_core.WritableSignal<boolean>;
+    constructor();
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<VideoTutorialModalComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<VideoTutorialModalComponent, "tpp-video-tutorial-modal", never, { "url": { "alias": "url"; "required": true; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "visible": "visibleChange"; }, never, never, true, never>;
+}
+
+export { LoadingStateComponent, NotFoundComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
+export type { TableStateType };

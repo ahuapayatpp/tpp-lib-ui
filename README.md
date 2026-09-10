@@ -28,24 +28,25 @@ npm install
 
 | Selector | Clase | Inputs | Descripción |
 |---|---|---|---|
-| `<tpp-loading>` | `LoadingComponent` | `size: 'sm' \| 'md' \| 'lg'` | Indicador de carga |
+| `<tpp-loading-state>` | `LoadingStateComponent` | `size: 'sm' \| 'md' \| 'lg'` | Indicador de carga |
 | `<tpp-unauthorized>` | `UnauthorizedComponent` | `showButton`, `buttonText`, `homeRoute` | 401 - No autorizado |
 | `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | 404 - No encontrado |
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | 500 - Error del servidor |
-| `<tpp-table-state>` | `TableStateComponent` | `type` (`cargando` \| `vacio` \| `sin-resultados` \| `error`), `titulo`, `descripcion`, `reintentar` | Estado de tabla (carga, vacío, sin resultados, error) |
+| `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description`, `retry` | Estado de tabla (carga, vacío, sin resultados, error) |
+| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | Modal de video tutorial |
 
 ## Uso
 
 Los componentes son **standalone**, se importan desde el paquete:
 
 ```typescript
-import { LoadingComponent } from 'tpp-lib-ui';
+import { LoadingStateComponent } from 'tpp-lib-ui';
 ```
 
 En un template:
 
 ```html
-<tpp-loading size="md" />
+<tpp-loading-state size="md" />
 ```
 
 En rutas:
@@ -71,10 +72,10 @@ Con inputs:
 Estados de tabla:
 
 ```html
-<tpp-table-state type="cargando" />
-<tpp-table-state type="vacio" />
-<tpp-table-state type="sin-resultados" />
-<tpp-table-state type="error" (reintentar)="reintentarCarga()" />
+<tpp-table-state type="loading" />
+<tpp-table-state type="empty" />
+<tpp-table-state type="no-results" />
+<tpp-table-state type="error" (retry)="reintentarCarga()" />
 ```
 
 ## Desarrollo
