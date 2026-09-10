@@ -1,8 +1,51 @@
 import * as i0 from '@angular/core';
-import { input, Component, inject, output, computed, model, signal, effect, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { computed, input, output, model, ChangeDetectionStrategy, Component, inject, ViewChild, Input, signal, effect } from '@angular/core';
+import * as i2 from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import * as i1 from 'primeng/dialog';
 import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import * as i1$1 from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import * as i3 from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import * as i4 from 'primeng/iconfield';
+import { IconFieldModule } from 'primeng/iconfield';
+import * as i5 from 'primeng/inputicon';
+import { InputIconModule } from 'primeng/inputicon';
+
+class ConfirmationModalComponent {
+    configuracion = computed(() => this.tipoConfig[this.tipo()] ?? this.tipoConfig.success, ...(ngDevMode ? [{ debugName: "configuracion" }] : /* istanbul ignore next */ []));
+    titulo = input('', ...(ngDevMode ? [{ debugName: "titulo" }] : /* istanbul ignore next */ []));
+    mensaje = input('', ...(ngDevMode ? [{ debugName: "mensaje" }] : /* istanbul ignore next */ []));
+    tipo = input('success', ...(ngDevMode ? [{ debugName: "tipo" }] : /* istanbul ignore next */ []));
+    labelCancelar = input('Cancelar', ...(ngDevMode ? [{ debugName: "labelCancelar" }] : /* istanbul ignore next */ []));
+    labelConfirmar = input('Confirmar', ...(ngDevMode ? [{ debugName: "labelConfirmar" }] : /* istanbul ignore next */ []));
+    labelConfirmarCargando = input('Confirmando', ...(ngDevMode ? [{ debugName: "labelConfirmarCargando" }] : /* istanbul ignore next */ []));
+    procesando = input(false, ...(ngDevMode ? [{ debugName: "procesando" }] : /* istanbul ignore next */ []));
+    confirmado = output();
+    cancelado = output();
+    visible = model(false, ...(ngDevMode ? [{ debugName: "visible" }] : /* istanbul ignore next */ []));
+    confirmar() {
+        this.confirmado.emit();
+    }
+    cancelar() {
+        this.cancelado.emit();
+        this.visible.set(false);
+    }
+    tipoConfig = {
+        success: { iconoBg: 'bg-green-50', iconoColor: 'text-green-600', icono: 'ti ti-circle-check' },
+        error: { iconoBg: 'bg-red-50', iconoColor: 'text-red-600', icono: 'ti ti-cancel' },
+        warning: { iconoBg: 'bg-yellow-50', iconoColor: 'text-yellow-600', icono: 'ti ti-alert-triangle' },
+    };
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: ConfirmationModalComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.2.22", type: ConfirmationModalComponent, isStandalone: true, selector: "tpp-confirmation-modal", inputs: { titulo: { classPropertyName: "titulo", publicName: "titulo", isSignal: true, isRequired: false, transformFunction: null }, mensaje: { classPropertyName: "mensaje", publicName: "mensaje", isSignal: true, isRequired: false, transformFunction: null }, tipo: { classPropertyName: "tipo", publicName: "tipo", isSignal: true, isRequired: false, transformFunction: null }, labelCancelar: { classPropertyName: "labelCancelar", publicName: "labelCancelar", isSignal: true, isRequired: false, transformFunction: null }, labelConfirmar: { classPropertyName: "labelConfirmar", publicName: "labelConfirmar", isSignal: true, isRequired: false, transformFunction: null }, labelConfirmarCargando: { classPropertyName: "labelConfirmarCargando", publicName: "labelConfirmarCargando", isSignal: true, isRequired: false, transformFunction: null }, procesando: { classPropertyName: "procesando", publicName: "procesando", isSignal: true, isRequired: false, transformFunction: null }, visible: { classPropertyName: "visible", publicName: "visible", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { confirmado: "confirmado", cancelado: "cancelado", visible: "visibleChange" }, ngImport: i0, template: "<p-dialog\n  [(visible)]=\"visible\"\n  [header]=\"titulo()\"\n  [modal]=\"true\"\n  [dismissableMask]=\"false\"\n  [closeOnEscape]=\"!procesando()\"\n  draggable=\"false\"\n  [style]=\"{ width: '22rem' }\">\n  <div class=\"flex flex-col items-center w-full gap-4\">\n    <div class=\"w-14 h-14 rounded-full flex items-center justify-center mx-auto\" [class]=\"configuracion().iconoBg\">\n      <span [class]=\"configuracion().icono + ' text-4xl ' + configuracion().iconoColor\"></span>\n    </div>\n    <p class=\"text-gray-800 font-semibold text-center text-base mb-0\">{{ mensaje() }}</p>\n  </div>\n  <ng-template #footer>\n    <div class=\"flex gap-2 w-full\">\n      <p-button\n        fluid=\"true\"\n        class=\"flex-1\"\n        [label]=\"labelCancelar()\"\n        variant=\"outlined\"\n        severity=\"secondary\"\n        [disabled]=\"procesando()\"\n        (click)=\"cancelar()\"\n        size=\"large\" />\n      <p-button\n        fluid=\"true\"\n        class=\"flex-1\"\n        [label]=\"procesando() ? labelConfirmarCargando() : labelConfirmar()\"\n        [loading]=\"procesando()\"\n        severity=\"primary\"\n        (click)=\"confirmar()\"\n        size=\"large\" />\n    </div>\n  </ng-template>\n</p-dialog>\n", styles: [""], dependencies: [{ kind: "ngmodule", type: DialogModule }, { kind: "component", type: i1.Dialog, selector: "p-dialog", inputs: ["hostName", "header", "draggable", "resizable", "contentStyle", "contentStyleClass", "modal", "closeOnEscape", "dismissableMask", "rtl", "closable", "breakpoints", "styleClass", "maskStyleClass", "maskStyle", "showHeader", "blockScroll", "autoZIndex", "baseZIndex", "minX", "minY", "focusOnShow", "maximizable", "keepInViewport", "focusTrap", "transitionOptions", "maskMotionOptions", "motionOptions", "closeIcon", "closeAriaLabel", "closeTabindex", "minimizeIcon", "maximizeIcon", "closeButtonProps", "maximizeButtonProps", "visible", "style", "position", "role", "appendTo", "content", "contentTemplate", "footerTemplate", "closeIconTemplate", "maximizeIconTemplate", "minimizeIconTemplate", "headlessTemplate"], outputs: ["onShow", "onHide", "visibleChange", "onResizeInit", "onResizeEnd", "onDragEnd", "onMaximize"] }, { kind: "ngmodule", type: ButtonModule }, { kind: "component", type: i2.Button, selector: "p-button", inputs: ["hostName", "type", "badge", "disabled", "raised", "rounded", "text", "plain", "outlined", "link", "tabindex", "size", "variant", "style", "styleClass", "badgeClass", "badgeSeverity", "ariaLabel", "autofocus", "iconPos", "icon", "label", "loading", "loadingIcon", "severity", "buttonProps", "fluid"], outputs: ["onClick", "onFocus", "onBlur"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: ConfirmationModalComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'tpp-confirmation-modal', changeDetection: ChangeDetectionStrategy.OnPush, imports: [DialogModule, ButtonModule], template: "<p-dialog\n  [(visible)]=\"visible\"\n  [header]=\"titulo()\"\n  [modal]=\"true\"\n  [dismissableMask]=\"false\"\n  [closeOnEscape]=\"!procesando()\"\n  draggable=\"false\"\n  [style]=\"{ width: '22rem' }\">\n  <div class=\"flex flex-col items-center w-full gap-4\">\n    <div class=\"w-14 h-14 rounded-full flex items-center justify-center mx-auto\" [class]=\"configuracion().iconoBg\">\n      <span [class]=\"configuracion().icono + ' text-4xl ' + configuracion().iconoColor\"></span>\n    </div>\n    <p class=\"text-gray-800 font-semibold text-center text-base mb-0\">{{ mensaje() }}</p>\n  </div>\n  <ng-template #footer>\n    <div class=\"flex gap-2 w-full\">\n      <p-button\n        fluid=\"true\"\n        class=\"flex-1\"\n        [label]=\"labelCancelar()\"\n        variant=\"outlined\"\n        severity=\"secondary\"\n        [disabled]=\"procesando()\"\n        (click)=\"cancelar()\"\n        size=\"large\" />\n      <p-button\n        fluid=\"true\"\n        class=\"flex-1\"\n        [label]=\"procesando() ? labelConfirmarCargando() : labelConfirmar()\"\n        [loading]=\"procesando()\"\n        severity=\"primary\"\n        (click)=\"confirmar()\"\n        size=\"large\" />\n    </div>\n  </ng-template>\n</p-dialog>\n" }]
+        }], propDecorators: { titulo: [{ type: i0.Input, args: [{ isSignal: true, alias: "titulo", required: false }] }], mensaje: [{ type: i0.Input, args: [{ isSignal: true, alias: "mensaje", required: false }] }], tipo: [{ type: i0.Input, args: [{ isSignal: true, alias: "tipo", required: false }] }], labelCancelar: [{ type: i0.Input, args: [{ isSignal: true, alias: "labelCancelar", required: false }] }], labelConfirmar: [{ type: i0.Input, args: [{ isSignal: true, alias: "labelConfirmar", required: false }] }], labelConfirmarCargando: [{ type: i0.Input, args: [{ isSignal: true, alias: "labelConfirmarCargando", required: false }] }], procesando: [{ type: i0.Input, args: [{ isSignal: true, alias: "procesando", required: false }] }], confirmado: [{ type: i0.Output, args: ["confirmado"] }], cancelado: [{ type: i0.Output, args: ["cancelado"] }], visible: [{ type: i0.Input, args: [{ isSignal: true, alias: "visible", required: false }] }, { type: i0.Output, args: ["visibleChange"] }] } });
 
 class LoadingStateComponent {
     size = input('md', ...(ngDevMode ? [{ debugName: "size" }] : /* istanbul ignore next */ []));
@@ -29,6 +72,41 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImpo
             type: Component,
             args: [{ selector: 'tpp-not-found', template: "<div class=\"tpp-error-container\">\r\n  <div class=\"tpp-error-card\">\r\n    <div class=\"tpp-error-icon\">\r\n      <i class=\"ti ti-search\"></i>\r\n    </div>\r\n    <h1 class=\"tpp-error-code\">404</h1>\r\n    <h2 class=\"tpp-error-title\">P\u00E1gina no encontrada</h2>\r\n    <p class=\"tpp-error-message\">La p\u00E1gina que busca no existe o fue movida. Verifique la direcci\u00F3n o regrese al inicio.</p>\r\n    @if (showButton()) {\r\n      <button class=\"tpp-error-button\" (click)=\"goHome()\">\r\n        {{ buttonText() }}\r\n      </button>\r\n    }\r\n  </div>\r\n</div>\r\n", styles: [".tpp-error-container{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem;background-color:var(--p-surface-50);box-sizing:border-box}.tpp-error-card{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:28rem;width:100%;padding:3rem 2rem;background-color:#fff;border:1px solid var(--p-surface-100);border-radius:1rem;box-shadow:0 20px 25px -5px #9da3a91a,0 10px 10px -5px #9da3a90a;animation:tpp-error-fade-up .4s ease-out forwards}@keyframes tpp-error-fade-up{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.tpp-error-icon{display:inline-flex;align-items:center;justify-content:center;width:5rem;height:5rem;border-radius:50%;background-color:var(--p-primary-50);color:var(--p-primary-500);font-size:3rem;margin-bottom:1.5rem}.tpp-error-code{font-size:5rem;font-weight:900;color:var(--p-surface-900);margin:0;line-height:1}.tpp-error-title{font-size:1.5rem;font-weight:600;color:var(--p-surface-700);margin:1rem 0 .75rem}.tpp-error-message{font-size:.875rem;line-height:1.5;color:var(--p-surface-500);margin:0}.tpp-error-button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.75rem;padding:.6rem 1.5rem;background-color:var(--p-primary-500);color:#fff;border:1px solid transparent;border-radius:.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background-color .2s ease-in-out,border-color .2s ease-in-out}.tpp-error-button:hover{background-color:var(--p-primary-600);border-color:var(--p-primary-700)}\n"] }]
         }], propDecorators: { showButton: [{ type: i0.Input, args: [{ isSignal: true, alias: "showButton", required: false }] }], buttonText: [{ type: i0.Input, args: [{ isSignal: true, alias: "buttonText", required: false }] }], homeRoute: [{ type: i0.Input, args: [{ isSignal: true, alias: "homeRoute", required: false }] }] } });
+
+class SearchComponent {
+    items = [];
+    value;
+    buscadorVisible = false;
+    placeholder = 'Buscar';
+    autocompleteRef;
+    buscar(event) {
+        this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
+    }
+    alternarBusqueda() {
+        this.buscadorVisible = !this.buscadorVisible;
+        if (this.buscadorVisible) {
+            setTimeout(() => this.autocompleteRef?.inputEL?.nativeElement?.focus());
+        }
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SearchComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "21.2.22", type: SearchComponent, isStandalone: true, selector: "tpp-search", inputs: { placeholder: "placeholder" }, viewQueries: [{ propertyName: "autocompleteRef", first: true, predicate: ["autocompleteRef"], descendants: true }], ngImport: i0, template: "<div\r\n  class=\"buscador-backdrop lg:hidden\"\r\n  [class.visible]=\"buscadorVisible\"\r\n  (click)=\"alternarBusqueda()\">\r\n</div>\r\n<div\r\n  class=\"relative w-80 hidden lg:inline-block\"\r\n  [class.buscador-mobile]=\"buscadorVisible\">\r\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\r\n    <p-iconfield iconPosition=\"left\">\r\n    <p-inputicon class=\"z-10\">\r\n      <i class=\"ti ti-search text-lg\"></i>\r\n    </p-inputicon>\r\n    <p-autocomplete\r\n      #autocompleteRef\r\n      showClear=\"true\"\r\n      [placeholder]=\"placeholder\"\r\n      size=\"large\"\r\n      [inputStyle]=\"{ 'line-height' : '1.31' }\"\r\n      inputStyleClass=\"max-lg:shadow-none pl-10 pr-2\"\r\n      [(ngModel)]=\"value\"\r\n      fluid=\"true\"\r\n      raised=\"true\"\r\n      [suggestions]=\"items\"\r\n      (completeMethod)=\"buscar($event)\" />\r\n    </p-iconfield>\r\n  </div>\r\n</div>\r\n<p-button\r\n  (onClick)=\"alternarBusqueda()\"\r\n  class=\"inline-block lg:hidden\"\r\n  icon=\"ti ti-search text-2xl\"\r\n  [rounded]=\"true\"\r\n  [text]=\"true\"\r\n  severity=\"secondary\" />\r\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"], dependencies: [{ kind: "ngmodule", type: CommonModule }, { kind: "ngmodule", type: FormsModule }, { kind: "directive", type: i1$1.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i1$1.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "ngmodule", type: ButtonModule }, { kind: "component", type: i2.Button, selector: "p-button", inputs: ["hostName", "type", "badge", "disabled", "raised", "rounded", "text", "plain", "outlined", "link", "tabindex", "size", "variant", "style", "styleClass", "badgeClass", "badgeSeverity", "ariaLabel", "autofocus", "iconPos", "icon", "label", "loading", "loadingIcon", "severity", "buttonProps", "fluid"], outputs: ["onClick", "onFocus", "onBlur"] }, { kind: "ngmodule", type: AutoCompleteModule }, { kind: "component", type: i3.AutoComplete, selector: "p-autoComplete, p-autocomplete, p-auto-complete", inputs: ["minLength", "minQueryLength", "delay", "panelStyle", "styleClass", "panelStyleClass", "inputStyle", "inputId", "inputStyleClass", "placeholder", "readonly", "scrollHeight", "lazy", "virtualScroll", "virtualScrollItemSize", "virtualScrollOptions", "autoHighlight", "forceSelection", "type", "autoZIndex", "baseZIndex", "ariaLabel", "dropdownAriaLabel", "ariaLabelledBy", "dropdownIcon", "unique", "group", "completeOnFocus", "showClear", "dropdown", "showEmptyMessage", "dropdownMode", "multiple", "addOnTab", "tabindex", "dataKey", "emptyMessage", "showTransitionOptions", "hideTransitionOptions", "autofocus", "autocomplete", "optionGroupChildren", "optionGroupLabel", "overlayOptions", "suggestions", "optionLabel", "optionValue", "id", "searchMessage", "emptySelectionMessage", "selectionMessage", "autoOptionFocus", "selectOnFocus", "searchLocale", "optionDisabled", "focusOnHover", "typeahead", "addOnBlur", "separator", "appendTo", "motionOptions"], outputs: ["completeMethod", "onSelect", "onUnselect", "onAdd", "onFocus", "onBlur", "onDropdownClick", "onClear", "onInputKeydown", "onKeyUp", "onShow", "onHide", "onLazyLoad"] }, { kind: "ngmodule", type: IconFieldModule }, { kind: "component", type: i4.IconField, selector: "p-iconfield, p-iconField, p-icon-field", inputs: ["hostName", "iconPosition", "styleClass"] }, { kind: "ngmodule", type: InputIconModule }, { kind: "component", type: i5.InputIcon, selector: "p-inputicon, p-inputIcon", inputs: ["hostName", "styleClass"] }] });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SearchComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'tpp-search', imports: [
+                        CommonModule,
+                        FormsModule,
+                        ButtonModule,
+                        AutoCompleteModule,
+                        IconFieldModule,
+                        InputIconModule
+                    ], template: "<div\r\n  class=\"buscador-backdrop lg:hidden\"\r\n  [class.visible]=\"buscadorVisible\"\r\n  (click)=\"alternarBusqueda()\">\r\n</div>\r\n<div\r\n  class=\"relative w-80 hidden lg:inline-block\"\r\n  [class.buscador-mobile]=\"buscadorVisible\">\r\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\r\n    <p-iconfield iconPosition=\"left\">\r\n    <p-inputicon class=\"z-10\">\r\n      <i class=\"ti ti-search text-lg\"></i>\r\n    </p-inputicon>\r\n    <p-autocomplete\r\n      #autocompleteRef\r\n      showClear=\"true\"\r\n      [placeholder]=\"placeholder\"\r\n      size=\"large\"\r\n      [inputStyle]=\"{ 'line-height' : '1.31' }\"\r\n      inputStyleClass=\"max-lg:shadow-none pl-10 pr-2\"\r\n      [(ngModel)]=\"value\"\r\n      fluid=\"true\"\r\n      raised=\"true\"\r\n      [suggestions]=\"items\"\r\n      (completeMethod)=\"buscar($event)\" />\r\n    </p-iconfield>\r\n  </div>\r\n</div>\r\n<p-button\r\n  (onClick)=\"alternarBusqueda()\"\r\n  class=\"inline-block lg:hidden\"\r\n  icon=\"ti ti-search text-2xl\"\r\n  [rounded]=\"true\"\r\n  [text]=\"true\"\r\n  severity=\"secondary\" />\r\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"] }]
+        }], propDecorators: { placeholder: [{
+                type: Input
+            }], autocompleteRef: [{
+                type: ViewChild,
+                args: ['autocompleteRef']
+            }] } });
 
 class ServerErrorComponent {
     router = inject(Router);
@@ -133,5 +211,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImpo
  * Generated bundle index. Do not edit.
  */
 
-export { LoadingStateComponent, NotFoundComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
+export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
 //# sourceMappingURL=tpp-lib-ui.mjs.map

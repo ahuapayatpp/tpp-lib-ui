@@ -1,4 +1,29 @@
 import * as _angular_core from '@angular/core';
+import { AutoComplete } from 'primeng/autocomplete';
+
+type TipoConfirmacion = 'success' | 'error' | 'warning';
+declare class ConfirmationModalComponent {
+    configuracion: _angular_core.Signal<{
+        iconoBg: string;
+        iconoColor: string;
+        icono: string;
+    }>;
+    titulo: _angular_core.InputSignal<string>;
+    mensaje: _angular_core.InputSignal<string>;
+    tipo: _angular_core.InputSignal<TipoConfirmacion>;
+    labelCancelar: _angular_core.InputSignal<string>;
+    labelConfirmar: _angular_core.InputSignal<string>;
+    labelConfirmarCargando: _angular_core.InputSignal<string>;
+    procesando: _angular_core.InputSignal<boolean>;
+    confirmado: _angular_core.OutputEmitterRef<void>;
+    cancelado: _angular_core.OutputEmitterRef<void>;
+    visible: _angular_core.ModelSignal<boolean>;
+    confirmar(): void;
+    cancelar(): void;
+    private readonly tipoConfig;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<ConfirmationModalComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<ConfirmationModalComponent, "tpp-confirmation-modal", never, { "titulo": { "alias": "titulo"; "required": false; "isSignal": true; }; "mensaje": { "alias": "mensaje"; "required": false; "isSignal": true; }; "tipo": { "alias": "tipo"; "required": false; "isSignal": true; }; "labelCancelar": { "alias": "labelCancelar"; "required": false; "isSignal": true; }; "labelConfirmar": { "alias": "labelConfirmar"; "required": false; "isSignal": true; }; "labelConfirmarCargando": { "alias": "labelConfirmarCargando"; "required": false; "isSignal": true; }; "procesando": { "alias": "procesando"; "required": false; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "confirmado": "confirmado"; "cancelado": "cancelado"; "visible": "visibleChange"; }, never, never, true, never>;
+}
 
 declare class LoadingStateComponent {
     size: _angular_core.InputSignal<"sm" | "md" | "lg">;
@@ -14,6 +39,22 @@ declare class NotFoundComponent {
     goHome(): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<NotFoundComponent, never>;
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<NotFoundComponent, "tpp-not-found", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
+}
+
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+declare class SearchComponent {
+    items: any[];
+    value: any;
+    buscadorVisible: boolean;
+    placeholder: string;
+    autocompleteRef: AutoComplete;
+    buscar(event: AutoCompleteCompleteEvent): void;
+    alternarBusqueda(): void;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<SearchComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SearchComponent, "tpp-search", never, { "placeholder": { "alias": "placeholder"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 declare class ServerErrorComponent {
@@ -67,5 +108,5 @@ declare class VideoTutorialModalComponent {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<VideoTutorialModalComponent, "tpp-video-tutorial-modal", never, { "url": { "alias": "url"; "required": true; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "visible": "visibleChange"; }, never, never, true, never>;
 }
 
-export { LoadingStateComponent, NotFoundComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
-export type { TableStateType };
+export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
+export type { TableStateType, TipoConfirmacion };
