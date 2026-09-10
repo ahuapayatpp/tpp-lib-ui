@@ -36,6 +36,7 @@ npm install
 | `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | Modal de video tutorial |
 | `<tpp-search>` | `SearchComponent` | `placeholder` | Buscador con autocompletado |
 | `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | Modal de confirmación (éxito, error, advertencia) |
+| `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | Tarjeta resumen con título, cantidad, unidad e ícono |
 
 ## Uso
 

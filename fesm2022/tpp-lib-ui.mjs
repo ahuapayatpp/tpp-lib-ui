@@ -205,11 +205,30 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImpo
             args: [{ selector: 'tpp-video-tutorial-modal', changeDetection: ChangeDetectionStrategy.OnPush, imports: [DialogModule, LoadingStateComponent], template: "<p-dialog\r\n  [(visible)]=\"visible\"\r\n  header=\"Video tutorial\"\r\n  [modal]=\"true\"\r\n  [maximizable]=\"true\"\r\n  [dismissableMask]=\"false\"\r\n  draggable=\"false\"\r\n  contentStyleClass=\"p-0 overflow-hidden rounded-b-xl\"\r\n  [position]=\"'top'\"\r\n  [style]=\"{ width: '56rem', 'min-height': cargandoVideo() ? '28rem' : 'auto' }\">\r\n  @if (cargandoVideo()) {\r\n    <div class=\"flex flex-col items-center justify-center py-16 gap-4 min-h-[28rem]\">\r\n      <tpp-loading-state size=\"md\" />\r\n      <p class=\"text-gray-400 text-sm\">Cargando video tutorial...</p>\r\n    </div>\r\n  } @else {\r\n    <div class=\"aspect-video\">\r\n      <video [src]=\"url()\" controls class=\"w-full h-full bg-black object-contain\"></video>\r\n    </div>\r\n  }\r\n</p-dialog>\r\n" }]
         }], ctorParameters: () => [], propDecorators: { url: [{ type: i0.Input, args: [{ isSignal: true, alias: "url", required: true }] }], visible: [{ type: i0.Input, args: [{ isSignal: true, alias: "visible", required: false }] }, { type: i0.Output, args: ["visibleChange"] }] } });
 
+class SummaryCardComponent {
+    cardClase = computed(() => this.colorMap[this.resumen().color].card, ...(ngDevMode ? [{ debugName: "cardClase" }] : /* istanbul ignore next */ []));
+    iconClase = computed(() => this.colorMap[this.resumen().color].icon, ...(ngDevMode ? [{ debugName: "iconClase" }] : /* istanbul ignore next */ []));
+    resumen = input.required(...(ngDevMode ? [{ debugName: "resumen" }] : /* istanbul ignore next */ []));
+    colorMap = {
+        danger: { card: 'bg-red-50 border-red-200', icon: 'bg-red-100 text-red-600 border-red-200' },
+        warning: { card: 'bg-yellow-50 border-yellow-200', icon: 'bg-yellow-100 text-yellow-600 border-yellow-200' },
+        success: { card: 'bg-green-50 border-green-200', icon: 'bg-green-100 text-green-600 border-green-200' },
+        primary: { card: 'bg-blue-50 border-blue-200', icon: 'bg-blue-100 text-blue-600 border-blue-200' },
+        secondary: { card: 'bg-white border-gray-100', icon: 'bg-gray-50 text-gray-600 border-gray-200' },
+    };
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SummaryCardComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "21.2.22", type: SummaryCardComponent, isStandalone: true, selector: "tpp-summary-card", inputs: { resumen: { classPropertyName: "resumen", publicName: "resumen", isSignal: true, isRequired: true, transformFunction: null } }, ngImport: i0, template: "<div class=\"rounded-xl shadow-sm border py-3 px-4 gap-4 flex items-center\" [class]=\"cardClase()\">\r\n  @if (resumen().icono) {\r\n    <span class=\"flex-shrink-0 rounded-full flex items-center justify-center w-10 h-10 text-xl border {{ resumen().icono }} {{ iconClase() }}\">\r\n    </span>\r\n  }\r\n  <div class=\"min-w-0\">\r\n    <p class=\"truncate text-xs text-tpp-surface-800 font-semibold\">\r\n      {{ resumen().titulo }}\r\n    </p>\r\n    <h2 class=\"text-2xl font-bold text-tpp-surface-800\">\r\n      {{ resumen().cantidad }}\r\n      @if (resumen().unidad) {\r\n        <span class=\"text-sm font-normal\">\r\n          {{ resumen().unidad }}\r\n        </span>\r\n      }\r\n    </h2>\r\n    @if (resumen().subtitulo) {\r\n      <p class=\"truncate text-xs text-tpp-surface-500\">\r\n        {{ resumen().subtitulo }}\r\n      </p>\r\n    }\r\n  </div>\r\n</div>\r\n", changeDetection: i0.ChangeDetectionStrategy.OnPush });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SummaryCardComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'tpp-summary-card', changeDetection: ChangeDetectionStrategy.OnPush, imports: [], template: "<div class=\"rounded-xl shadow-sm border py-3 px-4 gap-4 flex items-center\" [class]=\"cardClase()\">\r\n  @if (resumen().icono) {\r\n    <span class=\"flex-shrink-0 rounded-full flex items-center justify-center w-10 h-10 text-xl border {{ resumen().icono }} {{ iconClase() }}\">\r\n    </span>\r\n  }\r\n  <div class=\"min-w-0\">\r\n    <p class=\"truncate text-xs text-tpp-surface-800 font-semibold\">\r\n      {{ resumen().titulo }}\r\n    </p>\r\n    <h2 class=\"text-2xl font-bold text-tpp-surface-800\">\r\n      {{ resumen().cantidad }}\r\n      @if (resumen().unidad) {\r\n        <span class=\"text-sm font-normal\">\r\n          {{ resumen().unidad }}\r\n        </span>\r\n      }\r\n    </h2>\r\n    @if (resumen().subtitulo) {\r\n      <p class=\"truncate text-xs text-tpp-surface-500\">\r\n        {{ resumen().subtitulo }}\r\n      </p>\r\n    }\r\n  </div>\r\n</div>\r\n" }]
+        }], propDecorators: { resumen: [{ type: i0.Input, args: [{ isSignal: true, alias: "resumen", required: true }] }] } });
+
 // Componentes
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
+export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, SummaryCardComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
 //# sourceMappingURL=tpp-lib-ui.mjs.map

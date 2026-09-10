@@ -108,5 +108,23 @@ declare class VideoTutorialModalComponent {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<VideoTutorialModalComponent, "tpp-video-tutorial-modal", never, { "url": { "alias": "url"; "required": true; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "visible": "visibleChange"; }, never, never, true, never>;
 }
 
-export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
-export type { TableStateType, TipoConfirmacion };
+type SummaryCardColor = 'danger' | 'warning' | 'success' | 'primary' | 'secondary';
+interface SummaryCard {
+    titulo: string;
+    icono?: string;
+    cantidad: string | number;
+    unidad?: string;
+    subtitulo?: string;
+    color: SummaryCardColor;
+}
+declare class SummaryCardComponent {
+    cardClase: _angular_core.Signal<string>;
+    iconClase: _angular_core.Signal<string>;
+    resumen: _angular_core.InputSignal<SummaryCard>;
+    private colorMap;
+    static ɵfac: _angular_core.ɵɵFactoryDeclaration<SummaryCardComponent, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SummaryCardComponent, "tpp-summary-card", never, { "resumen": { "alias": "resumen"; "required": true; "isSignal": true; }; }, {}, never, never, true, never>;
+}
+
+export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, SummaryCardComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
+export type { SummaryCard, SummaryCardColor, TableStateType, TipoConfirmacion };
