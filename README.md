@@ -10,7 +10,13 @@ Librería de componentes Angular compartidos de TPP para los microfrontends.
 
 ## Instalación
 
-Agregar en `package.json`:
+Instalar mediante npm:
+
+```bash
+npm install github:ahuapayatpp/tpp-lib-ui
+```
+
+También puedes agregarlo manualmente en `package.json`:
 
 ```json
 "dependencies": {
@@ -26,17 +32,17 @@ npm install
 
 ## Componentes disponibles
 
-| Selector | Clase | Inputs | Descripción |
-|---|---|---|---|
-| `<tpp-loading-state>` | `LoadingStateComponent` | `size: 'sm' \| 'md' \| 'lg'` | Indicador de carga |
-| `<tpp-unauthorized>` | `UnauthorizedComponent` | `showButton`, `buttonText`, `homeRoute` | 401 - No autorizado |
-| `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | 404 - No encontrado |
-| `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | 500 - Error del servidor |
-| `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description`, `retry` | Estado de tabla (carga, vacío, sin resultados, error) |
-| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | Modal de video tutorial |
-| `<tpp-search>` | `SearchComponent` | `placeholder` | Buscador simple de texto |
-| `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | Modal de confirmación (éxito, error, advertencia) |
-| `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | Tarjeta resumen con título, cantidad, unidad e ícono |
+| Selector | Clase | Inputs | Outputs | Descripción |
+|---|---|---|---|---|
+| `<tpp-loading-state>` | `LoadingStateComponent` | `size: 'sm' \| 'md' \| 'lg'` | — | Indicador de carga |
+| `<tpp-unauthorized>` | `UnauthorizedComponent` | `showButton`, `buttonText`, `homeRoute` | — | 401 - No autorizado |
+| `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | — | 404 - No encontrado |
+| `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | — | 500 - Error del servidor |
+| `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description` | `retry: void` | Estado de tabla (carga, vacío, sin resultados, error) |
+| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean` | Modal de video tutorial |
+| `<tpp-search>` | `SearchComponent` | `placeholder` | `searchChange: string` | Buscador simple de texto |
+| `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | `confirmado: void`, `cancelado: void`, `visibleChange: boolean` | Modal de confirmación (éxito, error, advertencia) |
+| `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | — | Tarjeta resumen con título, cantidad, unidad e ícono |
 
 ## Uso
 
