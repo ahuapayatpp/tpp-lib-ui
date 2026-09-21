@@ -96,21 +96,13 @@ declare class UnauthorizedComponent {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<UnauthorizedComponent, "tpp-unauthorized", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
-type VideoState = 'loading' | 'ready' | 'error';
 declare class VideoTutorialModalComponent {
     url: _angular_core.InputSignal<string>;
     visible: _angular_core.ModelSignal<boolean>;
-    retry: _angular_core.OutputEmitterRef<void>;
-    private videoState;
-    cargandoVideo: _angular_core.Signal<boolean>;
-    errorVideo: _angular_core.Signal<boolean>;
-    onVideoCanPlay(): void;
-    onVideoError(): void;
-    onVideoWaiting(): void;
-    reiniciarVideo(): void;
-    protected onVisibilityChange(): void;
+    cargandoVideo: _angular_core.WritableSignal<boolean>;
+    constructor();
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<VideoTutorialModalComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<VideoTutorialModalComponent, "tpp-video-tutorial-modal", never, { "url": { "alias": "url"; "required": true; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "visible": "visibleChange"; "retry": "retry"; }, never, never, true, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<VideoTutorialModalComponent, "tpp-video-tutorial-modal", never, { "url": { "alias": "url"; "required": true; "isSignal": true; }; "visible": { "alias": "visible"; "required": false; "isSignal": true; }; }, { "visible": "visibleChange"; }, never, never, true, never>;
 }
 
 type SummaryCardColor = 'danger' | 'warning' | 'success' | 'primary' | 'secondary';
@@ -132,4 +124,4 @@ declare class SummaryCardComponent {
 }
 
 export { ConfirmationModalComponent, LoadingStateComponent, NotFoundComponent, SearchComponent, ServerErrorComponent, SummaryCardComponent, TableStateComponent, UnauthorizedComponent, VideoTutorialModalComponent };
-export type { SummaryCard, SummaryCardColor, TableStateType, TipoConfirmacion, VideoState };
+export type { SummaryCard, SummaryCardColor, TableStateType, TipoConfirmacion };
