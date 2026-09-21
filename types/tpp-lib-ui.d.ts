@@ -44,11 +44,14 @@ declare class SearchComponent {
     value: string;
     placeholder: _angular_core.InputSignal<string>;
     searchChange: _angular_core.OutputEmitterRef<string>;
+    searchSubmit: _angular_core.OutputEmitterRef<string>;
     searchVisible: _angular_core.WritableSignal<boolean>;
     onSearchChange(value: string): void;
+    clearSearch(): void;
+    submitSearch(): void;
     toggleSearch(): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<SearchComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SearchComponent, "tpp-search", never, { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; }, { "searchChange": "searchChange"; }, never, never, true, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SearchComponent, "tpp-search", never, { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; }, { "searchChange": "searchChange"; "searchSubmit": "searchSubmit"; }, never, never, true, never>;
 }
 
 declare class ServerErrorComponent {

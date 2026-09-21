@@ -40,7 +40,7 @@ npm install
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | — | 500 - Error del servidor |
 | `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description` | `retry: void` | Estado de tabla (carga, vacío, sin resultados, error) |
 | `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean` | Modal de video tutorial |
-| `<tpp-search>` | `SearchComponent` | `placeholder` | `searchChange: string` | Buscador simple de texto |
+| `<tpp-search>` | `SearchComponent` | `placeholder` | `searchChange: string`, `searchSubmit: string` | Buscador simple de texto |
 | `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | `confirmado: void`, `cancelado: void`, `visibleChange: boolean` | Modal de confirmación (éxito, error, advertencia) |
 | `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | — | Tarjeta resumen con título, cantidad, unidad e ícono |
 
@@ -85,6 +85,17 @@ Buscador simple:
   placeholder="Buscar agente"
   (searchChange)="onAplicarFiltros($event)" />
 ```
+
+Confirmar búsqueda con Enter:
+
+```html
+<tpp-search
+  placeholder="Buscar agente"
+  (searchChange)="onAplicarFiltros($event)"
+  (searchSubmit)="ejecutarBusqueda($event)" />
+```
+
+El componente incluye un botón `X` para limpiar el texto; al limpiar, emite `searchChange('')`.
 
 Estados de tabla:
 
