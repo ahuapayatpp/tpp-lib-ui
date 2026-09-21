@@ -5,7 +5,8 @@ Librería de componentes Angular compartidos de TPP para los microfrontends.
 ## Requisitos previos
 
 - Angular >= 21.2 (peers: `@angular/core`, `@angular/common`, `@angular/router` `^21.2.0`)
-- Los componentes de error usan íconos Tabler (`ti-*`); el host debe importar
+- PrimeNG >= 21.1 (peer dependency)
+- Los componentes usan íconos Tabler (`ti-*`); el host debe importar
   el webfont de `@tabler/icons-webfont` en sus estilos globales (estándar en los MFs TPP)
 
 ## Instalación
@@ -39,7 +40,7 @@ npm install
 | `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | — | 404 - No encontrado |
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | — | 500 - Error del servidor |
 | `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description` | `retry: void` | Estado de tabla (carga, vacío, sin resultados, error) |
-| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean` | Modal de video tutorial |
+| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean`, `retry: void` | Modal de video tutorial |
 | `<tpp-search>` | `SearchComponent` | `placeholder` | `searchChange: string`, `searchSubmit: string` | Buscador simple de texto |
 | `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | `confirmado: void`, `cancelado: void`, `visibleChange: boolean` | Modal de confirmación (éxito, error, advertencia) |
 | `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | — | Tarjeta resumen con título, cantidad, unidad e ícono |
@@ -97,6 +98,36 @@ Confirmar búsqueda con Enter:
 
 El componente incluye un botón `X` para limpiar el texto; al limpiar, emite `searchChange('')`.
 
+Modal de confirmación:
+
+```html
+<tpp-confirmation-modal
+  [(visible)]="modalVisible"
+  titulo="Confirmar eliminación"
+  mensaje="¿Está seguro de eliminar el registro?"
+  tipo="warning"
+  [procesando]="eliminando"
+  (confirmado)="confirmarEliminacion()"
+  (cancelado)="cancelarEliminacion()" />
+```
+
+- `confirmado` se emite al pulsar confirmar.
+- Mientras `procesando` sea `true`, no se emiten ni `confirmado` ni `cancelado`.
+- El cierre final del modal queda bajo control del consumidor mediante `visible`.
+
+Modal de video tutorial:
+
+```html
+<tpp-video-tutorial-modal
+  [(visible)]="modalVideoVisible"
+  url="https://tpp.example.com/tutorial.mp4"
+  (retry)="recargarVideo()" />
+```
+
+- El estado de carga se basa en los eventos nativos del elemento `<video>`.
+- Si el video falla, se muestra un mensaje de error con opción de reintentar.
+- `retry` se emite cuando el usuario pulsa reintentar.
+
 Estados de tabla:
 
 ```html
@@ -112,7 +143,8 @@ Estados de tabla:
 2. `npm install`
 3. `ng build tpp-lib-ui` (genera `dist/`)
 4. Agregar componentes en `projects/tpp-lib-ui/src/lib/components/` y exportarlos en `public-api.ts`
-5. Publicar cambios: `.\publish.ps1`
+5. Ejecutar pruebas: `ng test --project=tpp-lib-ui`
+6. Publicar cambios: `.\publish.ps1`
 
 ## Roadmap
 
