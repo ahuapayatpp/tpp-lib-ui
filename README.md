@@ -34,7 +34,7 @@ npm install
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | 500 - Error del servidor |
 | `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description`, `retry` | Estado de tabla (carga, vacío, sin resultados, error) |
 | `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | Modal de video tutorial |
-| `<tpp-search>` | `SearchComponent` | `placeholder` | Buscador con autocompletado |
+| `<tpp-search>` | `SearchComponent` | `placeholder` | Buscador simple de texto |
 | `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | Modal de confirmación (éxito, error, advertencia) |
 | `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | Tarjeta resumen con título, cantidad, unidad e ícono |
 
@@ -70,6 +70,14 @@ Con inputs:
   [showButton]="false"
   buttonText="Volver al módulo"
   homeRoute="/listado-base" />
+```
+
+Buscador simple:
+
+```html
+<tpp-search
+  placeholder="Buscar agente"
+  (searchChange)="onAplicarFiltros($event)" />
 ```
 
 Estados de tabla:

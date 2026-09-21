@@ -1,5 +1,4 @@
 import * as _angular_core from '@angular/core';
-import { AutoComplete } from 'primeng/autocomplete';
 
 type TipoConfirmacion = 'success' | 'error' | 'warning';
 declare class ConfirmationModalComponent {
@@ -41,20 +40,15 @@ declare class NotFoundComponent {
     static ɵcmp: _angular_core.ɵɵComponentDeclaration<NotFoundComponent, "tpp-not-found", never, { "showButton": { "alias": "showButton"; "required": false; "isSignal": true; }; "buttonText": { "alias": "buttonText"; "required": false; "isSignal": true; }; "homeRoute": { "alias": "homeRoute"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
 }
 
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
 declare class SearchComponent {
-    items: any[];
-    value: any;
-    buscadorVisible: boolean;
-    placeholder: string;
-    autocompleteRef: AutoComplete;
-    buscar(event: AutoCompleteCompleteEvent): void;
-    alternarBusqueda(): void;
+    value: string;
+    placeholder: _angular_core.InputSignal<string>;
+    searchChange: _angular_core.OutputEmitterRef<string>;
+    searchVisible: _angular_core.WritableSignal<boolean>;
+    onSearchChange(value: string): void;
+    toggleSearch(): void;
     static ɵfac: _angular_core.ɵɵFactoryDeclaration<SearchComponent, never>;
-    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SearchComponent, "tpp-search", never, { "placeholder": { "alias": "placeholder"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵcmp: _angular_core.ɵɵComponentDeclaration<SearchComponent, "tpp-search", never, { "placeholder": { "alias": "placeholder"; "required": false; "isSignal": true; }; }, { "searchChange": "searchChange"; }, never, never, true, never>;
 }
 
 declare class ServerErrorComponent {

@@ -1,19 +1,18 @@
 import * as i0 from '@angular/core';
-import { computed, input, output, model, ChangeDetectionStrategy, Component, inject, ViewChild, Input, signal, effect } from '@angular/core';
+import { computed, input, output, model, ChangeDetectionStrategy, Component, inject, signal, effect } from '@angular/core';
 import * as i2 from 'primeng/button';
 import { ButtonModule } from 'primeng/button';
 import * as i1 from 'primeng/dialog';
 import { DialogModule } from 'primeng/dialog';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import * as i1$1 from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import * as i3 from 'primeng/autocomplete';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import * as i4 from 'primeng/iconfield';
+import * as i3 from 'primeng/iconfield';
 import { IconFieldModule } from 'primeng/iconfield';
-import * as i5 from 'primeng/inputicon';
+import * as i4 from 'primeng/inputicon';
 import { InputIconModule } from 'primeng/inputicon';
+import * as i5 from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 
 class ConfirmationModalComponent {
     configuracion = computed(() => this.tipoConfig[this.tipo()] ?? this.tipoConfig.success, ...(ngDevMode ? [{ debugName: "configuracion" }] : /* istanbul ignore next */ []));
@@ -74,39 +73,29 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImpo
         }], propDecorators: { showButton: [{ type: i0.Input, args: [{ isSignal: true, alias: "showButton", required: false }] }], buttonText: [{ type: i0.Input, args: [{ isSignal: true, alias: "buttonText", required: false }] }], homeRoute: [{ type: i0.Input, args: [{ isSignal: true, alias: "homeRoute", required: false }] }] } });
 
 class SearchComponent {
-    items = [];
-    value;
-    buscadorVisible = false;
-    placeholder = 'Buscar';
-    autocompleteRef;
-    buscar(event) {
-        this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
+    value = '';
+    placeholder = input('Buscar...', ...(ngDevMode ? [{ debugName: "placeholder" }] : /* istanbul ignore next */ []));
+    searchChange = output();
+    searchVisible = signal(false, ...(ngDevMode ? [{ debugName: "searchVisible" }] : /* istanbul ignore next */ []));
+    onSearchChange(value) {
+        this.searchChange.emit(value || '');
     }
-    alternarBusqueda() {
-        this.buscadorVisible = !this.buscadorVisible;
-        if (this.buscadorVisible) {
-            setTimeout(() => this.autocompleteRef?.inputEL?.nativeElement?.focus());
-        }
+    toggleSearch() {
+        this.searchVisible.update((visible) => !visible);
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SearchComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "21.2.22", type: SearchComponent, isStandalone: true, selector: "tpp-search", inputs: { placeholder: "placeholder" }, viewQueries: [{ propertyName: "autocompleteRef", first: true, predicate: ["autocompleteRef"], descendants: true }], ngImport: i0, template: "<div\r\n  class=\"buscador-backdrop lg:hidden\"\r\n  [class.visible]=\"buscadorVisible\"\r\n  (click)=\"alternarBusqueda()\">\r\n</div>\r\n<div\r\n  class=\"relative w-80 hidden lg:inline-block\"\r\n  [class.buscador-mobile]=\"buscadorVisible\">\r\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\r\n    <p-iconfield iconPosition=\"left\">\r\n    <p-inputicon class=\"z-10\">\r\n      <i class=\"ti ti-search text-lg\"></i>\r\n    </p-inputicon>\r\n    <p-autocomplete\r\n      #autocompleteRef\r\n      showClear=\"true\"\r\n      [placeholder]=\"placeholder\"\r\n      size=\"large\"\r\n      [inputStyle]=\"{ 'line-height' : '1.31' }\"\r\n      inputStyleClass=\"max-lg:shadow-none pl-10 pr-2\"\r\n      [(ngModel)]=\"value\"\r\n      fluid=\"true\"\r\n      raised=\"true\"\r\n      [suggestions]=\"items\"\r\n      (completeMethod)=\"buscar($event)\" />\r\n    </p-iconfield>\r\n  </div>\r\n</div>\r\n<p-button\r\n  (onClick)=\"alternarBusqueda()\"\r\n  class=\"inline-block lg:hidden\"\r\n  icon=\"ti ti-search text-2xl\"\r\n  [rounded]=\"true\"\r\n  [text]=\"true\"\r\n  severity=\"secondary\" />\r\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"], dependencies: [{ kind: "ngmodule", type: CommonModule }, { kind: "ngmodule", type: FormsModule }, { kind: "directive", type: i1$1.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i1$1.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "ngmodule", type: ButtonModule }, { kind: "component", type: i2.Button, selector: "p-button", inputs: ["hostName", "type", "badge", "disabled", "raised", "rounded", "text", "plain", "outlined", "link", "tabindex", "size", "variant", "style", "styleClass", "badgeClass", "badgeSeverity", "ariaLabel", "autofocus", "iconPos", "icon", "label", "loading", "loadingIcon", "severity", "buttonProps", "fluid"], outputs: ["onClick", "onFocus", "onBlur"] }, { kind: "ngmodule", type: AutoCompleteModule }, { kind: "component", type: i3.AutoComplete, selector: "p-autoComplete, p-autocomplete, p-auto-complete", inputs: ["minLength", "minQueryLength", "delay", "panelStyle", "styleClass", "panelStyleClass", "inputStyle", "inputId", "inputStyleClass", "placeholder", "readonly", "scrollHeight", "lazy", "virtualScroll", "virtualScrollItemSize", "virtualScrollOptions", "autoHighlight", "forceSelection", "type", "autoZIndex", "baseZIndex", "ariaLabel", "dropdownAriaLabel", "ariaLabelledBy", "dropdownIcon", "unique", "group", "completeOnFocus", "showClear", "dropdown", "showEmptyMessage", "dropdownMode", "multiple", "addOnTab", "tabindex", "dataKey", "emptyMessage", "showTransitionOptions", "hideTransitionOptions", "autofocus", "autocomplete", "optionGroupChildren", "optionGroupLabel", "overlayOptions", "suggestions", "optionLabel", "optionValue", "id", "searchMessage", "emptySelectionMessage", "selectionMessage", "autoOptionFocus", "selectOnFocus", "searchLocale", "optionDisabled", "focusOnHover", "typeahead", "addOnBlur", "separator", "appendTo", "motionOptions"], outputs: ["completeMethod", "onSelect", "onUnselect", "onAdd", "onFocus", "onBlur", "onDropdownClick", "onClear", "onInputKeydown", "onKeyUp", "onShow", "onHide", "onLazyLoad"] }, { kind: "ngmodule", type: IconFieldModule }, { kind: "component", type: i4.IconField, selector: "p-iconfield, p-iconField, p-icon-field", inputs: ["hostName", "iconPosition", "styleClass"] }, { kind: "ngmodule", type: InputIconModule }, { kind: "component", type: i5.InputIcon, selector: "p-inputicon, p-inputIcon", inputs: ["hostName", "styleClass"] }] });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "21.2.22", type: SearchComponent, isStandalone: true, selector: "tpp-search", inputs: { placeholder: { classPropertyName: "placeholder", publicName: "placeholder", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { searchChange: "searchChange" }, ngImport: i0, template: "<div\n  class=\"buscador-backdrop lg:hidden\"\n  [class.visible]=\"searchVisible()\"\n  (click)=\"toggleSearch()\">\n</div>\n<div\n  class=\"relative w-80 hidden lg:inline-block\"\n  [class.buscador-mobile]=\"searchVisible()\">\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\n    <p-iconfield iconPosition=\"left\">\n      <p-inputicon class=\"z-10\">\n        <span class=\"ti ti-search text-lg\"></span>\n      </p-inputicon>\n      <input\n        pInputText\n        type=\"text\"\n        [placeholder]=\"placeholder()\"\n        size=\"large\"\n        class=\"max-lg:shadow-none pl-10 pr-2\"\n        [(ngModel)]=\"value\"\n        (ngModelChange)=\"onSearchChange($event)\" />\n    </p-iconfield>\n  </div>\n</div>\n<p-button\n  (onClick)=\"toggleSearch()\"\n  class=\"inline-block lg:hidden\"\n  icon=\"ti ti-search text-2xl\"\n  [rounded]=\"true\"\n  [text]=\"true\"\n  severity=\"secondary\" />\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"], dependencies: [{ kind: "ngmodule", type: FormsModule }, { kind: "directive", type: i1$1.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i1$1.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i1$1.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "ngmodule", type: ButtonModule }, { kind: "component", type: i2.Button, selector: "p-button", inputs: ["hostName", "type", "badge", "disabled", "raised", "rounded", "text", "plain", "outlined", "link", "tabindex", "size", "variant", "style", "styleClass", "badgeClass", "badgeSeverity", "ariaLabel", "autofocus", "iconPos", "icon", "label", "loading", "loadingIcon", "severity", "buttonProps", "fluid"], outputs: ["onClick", "onFocus", "onBlur"] }, { kind: "ngmodule", type: IconFieldModule }, { kind: "component", type: i3.IconField, selector: "p-iconfield, p-iconField, p-icon-field", inputs: ["hostName", "iconPosition", "styleClass"] }, { kind: "ngmodule", type: InputIconModule }, { kind: "component", type: i4.InputIcon, selector: "p-inputicon, p-inputIcon", inputs: ["hostName", "styleClass"] }, { kind: "ngmodule", type: InputTextModule }, { kind: "directive", type: i5.InputText, selector: "[pInputText]", inputs: ["hostName", "ptInputText", "pInputTextPT", "pInputTextUnstyled", "pSize", "variant", "fluid", "invalid"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "21.2.22", ngImport: i0, type: SearchComponent, decorators: [{
             type: Component,
             args: [{ selector: 'tpp-search', imports: [
-                        CommonModule,
                         FormsModule,
                         ButtonModule,
-                        AutoCompleteModule,
                         IconFieldModule,
-                        InputIconModule
-                    ], template: "<div\r\n  class=\"buscador-backdrop lg:hidden\"\r\n  [class.visible]=\"buscadorVisible\"\r\n  (click)=\"alternarBusqueda()\">\r\n</div>\r\n<div\r\n  class=\"relative w-80 hidden lg:inline-block\"\r\n  [class.buscador-mobile]=\"buscadorVisible\">\r\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\r\n    <p-iconfield iconPosition=\"left\">\r\n    <p-inputicon class=\"z-10\">\r\n      <i class=\"ti ti-search text-lg\"></i>\r\n    </p-inputicon>\r\n    <p-autocomplete\r\n      #autocompleteRef\r\n      showClear=\"true\"\r\n      [placeholder]=\"placeholder\"\r\n      size=\"large\"\r\n      [inputStyle]=\"{ 'line-height' : '1.31' }\"\r\n      inputStyleClass=\"max-lg:shadow-none pl-10 pr-2\"\r\n      [(ngModel)]=\"value\"\r\n      fluid=\"true\"\r\n      raised=\"true\"\r\n      [suggestions]=\"items\"\r\n      (completeMethod)=\"buscar($event)\" />\r\n    </p-iconfield>\r\n  </div>\r\n</div>\r\n<p-button\r\n  (onClick)=\"alternarBusqueda()\"\r\n  class=\"inline-block lg:hidden\"\r\n  icon=\"ti ti-search text-2xl\"\r\n  [rounded]=\"true\"\r\n  [text]=\"true\"\r\n  severity=\"secondary\" />\r\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"] }]
-        }], propDecorators: { placeholder: [{
-                type: Input
-            }], autocompleteRef: [{
-                type: ViewChild,
-                args: ['autocompleteRef']
-            }] } });
+                        InputIconModule,
+                        InputTextModule,
+                    ], changeDetection: ChangeDetectionStrategy.OnPush, standalone: true, template: "<div\n  class=\"buscador-backdrop lg:hidden\"\n  [class.visible]=\"searchVisible()\"\n  (click)=\"toggleSearch()\">\n</div>\n<div\n  class=\"relative w-80 hidden lg:inline-block\"\n  [class.buscador-mobile]=\"searchVisible()\">\n  <div class=\"max-lg:bg-white max-lg:p-4 rounded-xl\">\n    <p-iconfield iconPosition=\"left\">\n      <p-inputicon class=\"z-10\">\n        <span class=\"ti ti-search text-lg\"></span>\n      </p-inputicon>\n      <input\n        pInputText\n        type=\"text\"\n        [placeholder]=\"placeholder()\"\n        size=\"large\"\n        class=\"max-lg:shadow-none pl-10 pr-2\"\n        [(ngModel)]=\"value\"\n        (ngModelChange)=\"onSearchChange($event)\" />\n    </p-iconfield>\n  </div>\n</div>\n<p-button\n  (onClick)=\"toggleSearch()\"\n  class=\"inline-block lg:hidden\"\n  icon=\"ti ti-search text-2xl\"\n  [rounded]=\"true\"\n  [text]=\"true\"\n  severity=\"secondary\" />\n", styles: [".buscador-backdrop{position:fixed;inset:0;background-color:#0006;z-index:998;opacity:0;transition:opacity .15s ease-in-out;pointer-events:none}.buscador-backdrop.visible{opacity:1;pointer-events:auto}@media(max-width:1024px){.buscador-mobile{display:block;position:fixed;left:0;top:0;width:100%;z-index:999;padding:1rem}}\n"] }]
+        }], propDecorators: { placeholder: [{ type: i0.Input, args: [{ isSignal: true, alias: "placeholder", required: false }] }], searchChange: [{ type: i0.Output, args: ["searchChange"] }] } });
 
 class ServerErrorComponent {
     router = inject(Router);
