@@ -40,7 +40,7 @@ npm install
 | `<tpp-not-found>` | `NotFoundComponent` | `showButton`, `buttonText`, `homeRoute` | — | 404 - No encontrado |
 | `<tpp-server-error>` | `ServerErrorComponent` | `showButton`, `buttonText`, `homeRoute` | — | 500 - Error del servidor |
 | `<tpp-table-state>` | `TableStateComponent` | `type` (`loading` \| `empty` \| `no-results` \| `error`), `title`, `description` | `retry: void` | Estado de tabla (carga, vacío, sin resultados, error) |
-| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean`, `retry: void` | Modal de video tutorial |
+| `<tpp-video-tutorial-modal>` | `VideoTutorialModalComponent` | `url`, `visible` | `visibleChange: boolean` | Modal de video tutorial |
 | `<tpp-search>` | `SearchComponent` | `placeholder` | `searchChange: string`, `searchSubmit: string` | Buscador simple de texto |
 | `<tpp-confirmation-modal>` | `ConfirmationModalComponent` | `titulo`, `mensaje`, `tipo` (`success` \| `error` \| `warning`), `labelCancelar`, `labelConfirmar`, `labelConfirmarCargando`, `procesando`, `visible` | `confirmado: void`, `cancelado: void`, `visibleChange: boolean` | Modal de confirmación (éxito, error, advertencia) |
 | `<tpp-summary-card>` | `SummaryCardComponent` | `resumen: SummaryCard` | — | Tarjeta resumen con título, cantidad, unidad e ícono |
@@ -120,13 +120,12 @@ Modal de video tutorial:
 ```html
 <tpp-video-tutorial-modal
   [(visible)]="modalVideoVisible"
-  url="https://tpp.example.com/tutorial.mp4"
-  (retry)="recargarVideo()" />
+  url="https://tpp.example.com/tutorial.mp4" />
 ```
 
-- El estado de carga se basa en los eventos nativos del elemento `<video>`.
-- Si el video falla, se muestra un mensaje de error con opción de reintentar.
-- `retry` se emite cuando el usuario pulsa reintentar.
+El componente muestra el video tutorial dentro de un diálogo modal y utiliza
+los controles nativos del elemento `<video>` para reproducirlo, pausarlo y
+controlar el volumen.
 
 Estados de tabla:
 
